@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 
 import ChatRoomList from "./ChatRoomList/ChatRoomList";
+import ChatRoom from "./ChatRoom/ChatRoom";
 
 class App extends Component {
   state = {
+    selectedChatRoom: null,
+
     chatRooms: {
       "0": {
         name: "Teste",
@@ -32,7 +35,22 @@ class App extends Component {
   };
 
   render() {
-    return [<ChatRoomList chatRooms={this.state.chatRooms} />];
+    const { selectedChatRoom, chatRooms, messages } = this.state;
+
+    const selectedChatRoomData =
+      selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
+    const selectedChatRoomMessages =
+      selectedChatRoom === null ? null : messages[selectedChatRoom];
+
+    return (
+      <div>
+        <ChatRoomList chatRooms={this.state.chatRooms} />
+        <ChatRoom
+          chatRoomData={selectedChatRoomData}
+          messages={selectedChatRoomMessages}
+        />
+      </div>
+    );
   }
 }
 
