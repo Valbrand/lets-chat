@@ -4,7 +4,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-  border-bottom-left-radius: 5px;
+  border-bottom: 1px solid #ccc;
 }
 
 .create-chat-room-button:hover {

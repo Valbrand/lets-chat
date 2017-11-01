@@ -1,5 +1,6 @@
 .chat-room-list-root {
-  border-right: 1px solid #ccc;
+  height: 100%;
+  overflow: scroll;
 }
 
 .chat-room-list-header {

@@ -44,15 +44,17 @@ class App extends Component {
       selectedChatRoom === null ? null : messages[selectedChatRoom];
 
     return (
-      <div className="chat-container">
-        <div className="left-column">
-          <ChatRoomList chatRooms={this.state.chatRooms} />
-        </div>
-        <div className="right-column">
-          <ChatRoom
-            chatRoomData={selectedChatRoomData}
-            messages={selectedChatRoomMessages}
-          />
+      <div className="app-root">
+        <div className="chat-container">
+          <div className="left-column">
+            <ChatRoomList chatRooms={this.state.chatRooms} />
+          </div>
+          <div className="right-column">
+            <ChatRoom
+              chatRoomData={selectedChatRoomData}
+              messages={selectedChatRoomMessages}
+            />
+          </div>
         </div>
       </div>
     );

@@ -1,6 +1,14 @@
+.app-root {
+  width: 80vw;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .chat-container {
-  width: 80%;
-  margin: 2rem auto;
+  height: 80vh;
   display: flex;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -8,6 +16,7 @@
 
 .left-column {
   flex: 0 0 25%;
+  border-right: 1px solid #ccc;
 }
 
 .right-column {
