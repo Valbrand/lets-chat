@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import "./ChatRoomList.css";
 import ChatRoomListItem from "./ChatRoomListItem/ChatRoomListItem";
+import CreateChatRoomButton from "./CreateChatRoomButton/CreateChatRoomButton";
 
 export default class ChatRoomList extends Component {
   render() {
@@ -16,7 +17,7 @@ export default class ChatRoomList extends Component {
 
             return <ChatRoomListItem key={roomId} chatRoom={chatRoom} />;
           })
-          .concat(<button>Add new chat room</button>)}
+          .concat(<CreateChatRoomButton />)}
       </div>
     );
   }
