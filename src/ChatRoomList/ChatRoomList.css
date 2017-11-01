@@ -1,0 +1,9 @@
+.chat-room-list-root {
+  border-right: 1px solid #ccc;
+}
+
+.chat-room-list-header {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+}

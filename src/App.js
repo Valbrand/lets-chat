@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import "./App.css";
 import ChatRoomList from "./ChatRoomList/ChatRoomList";
 import ChatRoom from "./ChatRoom/ChatRoom";
 
@@ -43,12 +44,16 @@ class App extends Component {
       selectedChatRoom === null ? null : messages[selectedChatRoom];
 
     return (
-      <div>
-        <ChatRoomList chatRooms={this.state.chatRooms} />
-        <ChatRoom
-          chatRoomData={selectedChatRoomData}
-          messages={selectedChatRoomMessages}
-        />
+      <div className="chat-container">
+        <div className="left-column">
+          <ChatRoomList chatRooms={this.state.chatRooms} />
+        </div>
+        <div className="right-column">
+          <ChatRoom
+            chatRoomData={selectedChatRoomData}
+            messages={selectedChatRoomMessages}
+          />
+        </div>
       </div>
     );
   }

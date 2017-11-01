@@ -1,0 +1,23 @@
+.chat-room-list-item-root {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.chat-room-list-item-root:hover {
+  background-color: #eee;
+}
+
+.chat-room-list-item-name {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.chat-room-list-item-last-message-sender {
+  font-weight: bold;
+}
+
+.chat-room-list-item-last-message-time {
+  color: #999;
+  font-size: 0.8rem;
+}
