@@ -1,20 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+
+import ChatRoomList from "./ChatRoomList/ChatRoomList";
 
 class App extends Component {
+  state = {
+    chatRooms: {
+      "0": {
+        name: "Teste",
+        lastMessage: {
+          sender: "John Doe",
+          content: "Hello world",
+          timestamp: new Date()
+        }
+      }
+    },
+
+    messages: {
+      "0": [
+        {
+          sender: "John Doe",
+          content: "Hello world",
+          timestamp: new Date()
+        },
+        {
+          sender: "oeD jhoJ",
+          content: "dlrow olleH",
+          timestamp: new Date()
+        }
+      ]
+    }
+  };
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+    return [<ChatRoomList chatRooms={this.state.chatRooms} />];
   }
 }
 
