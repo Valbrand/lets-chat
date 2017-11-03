@@ -13,19 +13,20 @@ export default function createChatRoomService() {
 
     observeRoomList(callback) {
       firestore.collection("chatRooms").onSnapshot(querySnapshot => {
-        const chatRoomsObject = querySnapshot.docs.reduce(
-          (result, document) => {
-            const documentId = document.id;
-            const documentData = document.data();
+        const changesObject = querySnapshot.docChanges.reduce(
+          (result, change) => {
+            if (result[change.type] === undefined) {
+              result[change.type] = {};
+            }
 
-            result[documentId] = documentData;
+            result[change.type][change.doc.id] = change.doc.data();
 
             return result;
           },
           {}
         );
 
-        callback(chatRoomsObject);
+        callback(changesObject);
       });
     }
   };

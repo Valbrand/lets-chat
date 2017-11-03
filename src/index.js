@@ -7,8 +7,12 @@ import App from "./UI/App";
 import registerServiceWorker from "./registerServiceWorker";
 import createStore from "./state/createStore";
 import "./firebase/startFirebaseService";
+import { createStateIntegrationManager } from "./firebase/stateIntegration/reduxStateIntegration";
 
 const store = createStore();
+
+const stateIntegrationManager = createStateIntegrationManager(store);
+stateIntegrationManager.watchChatRooms();
 
 ReactDOM.render(
   <Provider store={store}>
