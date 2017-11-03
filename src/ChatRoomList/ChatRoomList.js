@@ -17,7 +17,7 @@ export default class ChatRoomList extends Component {
 
             return <ChatRoomListItem key={roomId} chatRoom={chatRoom} />;
           })
-          .concat(<CreateChatRoomButton />)}
+          .concat(<CreateChatRoomButton key={-1} />)}
       </div>
     );
   }

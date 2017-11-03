@@ -10,6 +10,15 @@
 
 .chat-room__message-list-container {
   flex: 1 0 0;
+  position: relative;
+}
+
+.chat-room__message-list-inner-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .chat-room__message-input-container {

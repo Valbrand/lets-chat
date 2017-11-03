@@ -1,10 +1,15 @@
 .chat-room-message-list__root {
+  height: 100%;
+  overflow: scroll;
+}
+
+.chat-room-message-list__messages-container {
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-end;
-  height: 100%;
   position: relative;
   padding: 0.5rem;
+  min-height: 100%;
 }
 
 .chat-room-message-list__cta {

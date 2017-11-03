@@ -16,7 +16,12 @@ export default class ChatRoom extends Component {
         </div>
 
         <div className="chat-room__message-list-container">
-          <ChatRoomMessageList messages={messages} currentUser={currentUser} />
+          <div className="chat-room__message-list-inner-container">
+            <ChatRoomMessageList
+              messages={messages}
+              currentUser={currentUser}
+            />
+          </div>
         </div>
 
         <div className="chat-room__message-input-container">
