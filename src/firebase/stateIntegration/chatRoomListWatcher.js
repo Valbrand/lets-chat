@@ -1,7 +1,7 @@
 import createChatRoomService from "../chatRoomService/chatRoomService";
 import { addChatRoom, removeChatRoom } from "../../state/chatRooms/chatRooms";
 
-export function createStateIntegrationManager(store) {
+export function createChatRoomListWatcher(store) {
   const chatRoomService = createChatRoomService();
 
   return {
@@ -24,7 +24,9 @@ export function createStateIntegrationManager(store) {
         }
 
         if (removed) {
-          store.dispatch(removeChatRoom(Object.keys(removed)));
+          Object.keys(removed).forEach(removedRoomId => {
+            store.dispatch(removeChatRoom(removedRoomId));
+          });
         }
       });
     }

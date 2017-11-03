@@ -1,12 +1,12 @@
 // Action types
-const ADD_MESSAGE = "lets-chat/ADD_MESSAGE";
+const ADD_MESSAGES = "lets-chat/ADD_MESSAGES";
 
 // Action creators
-export function addMessage(message) {
+export function addMessages(messages) {
   return {
-    type: ADD_MESSAGE,
+    type: ADD_MESSAGES,
     payload: {
-      message
+      messages
     }
   };
 }
@@ -14,11 +14,11 @@ export function addMessage(message) {
 // Reducer
 export default function messagesReducer(state = null, action) {
   switch (action.type) {
-    case ADD_MESSAGE:
+    case ADD_MESSAGES:
       if (state === null) {
-        return [action.payload.message];
+        return action.payload.messages;
       } else {
-        return [...state, action.payload.message];
+        return [...state, ...action.payload.messages];
       }
     default:
       return state;

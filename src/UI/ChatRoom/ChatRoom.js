@@ -27,10 +27,28 @@ class ChatRoom extends Component {
         </div>
 
         <div className="chat-room__message-input-container">
-          <ChatRoomMessageInput />
+          <ChatRoomMessageInput
+            chatRoomData={chatRoomData}
+            currentUser={currentUser}
+          />
         </div>
       </div>
     );
+  }
+
+  componentDidUpdate(previousProps) {
+    const currentChatRoomData = this.props.chatRoomData;
+    const previousChatRoomData = previousProps.chatRoomData;
+
+    if (currentChatRoomData !== previousChatRoomData) {
+      const { messagesWatcher } = this.props;
+
+      messagesWatcher.stopWatchingForMessages();
+
+      if (currentChatRoomData != null) {
+        messagesWatcher.watchForMessagesInRoom(currentChatRoomData.id);
+      }
+    }
   }
 }
 

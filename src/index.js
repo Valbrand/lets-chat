@@ -7,16 +7,19 @@ import App from "./UI/App";
 import registerServiceWorker from "./registerServiceWorker";
 import createStore from "./state/createStore";
 import "./firebase/startFirebaseService";
-import { createStateIntegrationManager } from "./firebase/stateIntegration/reduxStateIntegration";
+import { createChatRoomListWatcher } from "./firebase/stateIntegration/chatRoomListWatcher";
+import { createMessagesWatcher } from "./firebase/stateIntegration/messagesWatcher";
 
 const store = createStore();
 
-const stateIntegrationManager = createStateIntegrationManager(store);
+const stateIntegrationManager = createChatRoomListWatcher(store);
 stateIntegrationManager.watchChatRooms();
+
+const messagesWatcher = createMessagesWatcher(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App messagesWatcher={messagesWatcher} />
   </Provider>,
   document.getElementById("root")
 );

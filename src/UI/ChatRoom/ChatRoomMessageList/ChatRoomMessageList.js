@@ -24,24 +24,32 @@ export default class ChatRoomMessageList extends Component {
 
     if (isAnyRoomSelected) {
       if (messages !== null) {
-        return messages.map((message, index) => {
-          const messageAlignment = this.isMessageFromCurrentUser(message)
-            ? "right"
-            : "left";
+        if (messages.length > 0) {
+          return messages.map((message, index) => {
+            const messageAlignment = this.isMessageFromCurrentUser(message)
+              ? "right"
+              : "left";
 
+            return (
+              <div
+                key={index}
+                className={`chat-room-message-list__item-container___${messageAlignment}`}
+              >
+                <ChatRoomMessageListItem message={message} />
+              </div>
+            );
+          });
+        } else {
           return (
-            <div
-              key={index}
-              className={`chat-room-message-list__item-container___${messageAlignment}`}
-            >
-              <ChatRoomMessageListItem message={message} />
+            <div className="chat-room-message-list__cta">
+              <h1>No one said anything yet... Be the first!</h1>
             </div>
           );
-        });
+        }
       } else {
         return (
           <div className="chat-room-message-list__cta">
-            <h1>No one said anything yet... Be the first!</h1>
+            <h1>Loading messages...</h1>
           </div>
         );
       }

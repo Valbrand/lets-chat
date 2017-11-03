@@ -19,7 +19,10 @@ export default function createChatRoomService() {
               result[change.type] = {};
             }
 
-            result[change.type][change.doc.id] = change.doc.data();
+            result[change.type][change.doc.id] = {
+              ...change.doc.data(),
+              id: change.doc.id
+            };
 
             return result;
           },
