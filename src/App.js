@@ -6,7 +6,9 @@ import ChatRoom from "./ChatRoom/ChatRoom";
 
 class App extends Component {
   state = {
-    selectedChatRoom: null,
+    selectedChatRoom: 0,
+
+    currentUser: "oeD jhoJ",
 
     chatRooms: {
       "0": {
@@ -36,7 +38,7 @@ class App extends Component {
   };
 
   render() {
-    const { selectedChatRoom, chatRooms, messages } = this.state;
+    const { selectedChatRoom, chatRooms, messages, currentUser } = this.state;
 
     const selectedChatRoomData =
       selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
@@ -47,12 +49,16 @@ class App extends Component {
       <div className="app-root">
         <div className="chat-container">
           <div className="left-column">
-            <ChatRoomList chatRooms={this.state.chatRooms} />
+            <ChatRoomList
+              chatRooms={this.state.chatRooms}
+              currentUser={currentUser}
+            />
           </div>
           <div className="right-column">
             <ChatRoom
               chatRoomData={selectedChatRoomData}
               messages={selectedChatRoomMessages}
+              currentUser={currentUser}
             />
           </div>
         </div>

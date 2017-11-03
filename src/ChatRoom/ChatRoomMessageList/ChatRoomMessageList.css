@@ -1,0 +1,23 @@
+.chat-room-message-list__root {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  height: 100%;
+  position: relative;
+  padding: 0.5rem;
+}
+
+.chat-room-message-list__cta {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-room-message-list__item-container___right {
+  align-self: flex-end;
+}

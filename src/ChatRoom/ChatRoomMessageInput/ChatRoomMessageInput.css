@@ -1,0 +1,7 @@
+.chat-room-message-input__root {
+  padding: 0.5rem;
+}
+
+.chat-room-message-input__text-field {
+  width: 100%;
+}
