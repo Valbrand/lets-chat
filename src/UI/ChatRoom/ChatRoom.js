@@ -21,6 +21,7 @@ class ChatRoom extends Component {
             <ChatRoomMessageList
               messages={messages}
               currentUser={currentUser}
+              isAnyRoomSelected={chatRoomData != null}
             />
           </div>
         </div>
@@ -38,12 +39,10 @@ function mapState(state) {
 
   const selectedChatRoomData =
     selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
-  const selectedChatRoomMessages =
-    selectedChatRoom === null ? null : messages[selectedChatRoom];
 
   return {
     chatRoomData: selectedChatRoomData,
-    messages: selectedChatRoomMessages,
+    messages,
     currentUser: currentUser
   };
 }

@@ -13,7 +13,7 @@ export function addChatRoom(id, roomData) {
   };
 }
 
-export function removeChatRoom(...ids) {
+export function removeChatRoom(ids) {
   return {
     type: REMOVE_CHAT_ROOM,
     payload: {
@@ -30,9 +30,15 @@ export default function chatRoomsReducer(state = {}, action) {
     case REMOVE_CHAT_ROOM:
       const { idsToRemove } = action.payload;
 
-      return idsToRemove.reduce((state, id) => {
-        return { ...state, [id]: undefined };
-      }, state);
+      const keysToCopy = Object.keys(state).filter(stateKey => {
+        return idsToRemove.indexOf(stateKey) === -1;
+      });
+
+      return keysToCopy.reduce((newState, id) => {
+        newState[id] = state[id];
+
+        return newState;
+      }, {});
     default:
       return state;
   }

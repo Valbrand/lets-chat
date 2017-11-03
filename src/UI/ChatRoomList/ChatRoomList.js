@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "./ChatRoomList.css";
 import ChatRoomListItem from "./ChatRoomListItem/ChatRoomListItem";
 import CreateChatRoomButton from "./CreateChatRoomButton/CreateChatRoomButton";
+import { selectChatRoom } from "../../state/selectedChatRoom/selectedChatRoom";
 
 class ChatRoomList extends Component {
   render() {
@@ -16,12 +17,24 @@ class ChatRoomList extends Component {
           .map(roomId => {
             const chatRoom = chatRooms[roomId];
 
-            return <ChatRoomListItem key={roomId} chatRoom={chatRoom} />;
+            return (
+              <ChatRoomListItem
+                key={roomId}
+                chatRoom={chatRoom}
+                onSelect={this.chatRoomSelectionHandler(roomId)}
+              />
+            );
           })
           .concat(<CreateChatRoomButton key={-1} />)}
       </div>
     );
   }
+
+  chatRoomSelectionHandler = roomId => {
+    return () => {
+      this.props.selectChatRoom(roomId);
+    };
+  };
 }
 
 function mapState(state) {
@@ -31,4 +44,4 @@ function mapState(state) {
   };
 }
 
-export default connect(mapState, {})(ChatRoomList);
+export default connect(mapState, { selectChatRoom })(ChatRoomList);

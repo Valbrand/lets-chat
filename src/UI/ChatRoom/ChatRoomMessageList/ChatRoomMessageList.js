@@ -20,29 +20,37 @@ export default class ChatRoomMessageList extends Component {
   }
 
   content() {
-    let { messages } = this.props;
+    let { messages, isAnyRoomSelected } = this.props;
 
-    if (messages === null) {
+    if (isAnyRoomSelected) {
+      if (messages !== null) {
+        return messages.map((message, index) => {
+          const messageAlignment = this.isMessageFromCurrentUser(message)
+            ? "right"
+            : "left";
+
+          return (
+            <div
+              key={index}
+              className={`chat-room-message-list__item-container___${messageAlignment}`}
+            >
+              <ChatRoomMessageListItem message={message} />
+            </div>
+          );
+        });
+      } else {
+        return (
+          <div className="chat-room-message-list__cta">
+            <h1>No one said anything yet... Be the first!</h1>
+          </div>
+        );
+      }
+    } else {
       return (
         <div className="chat-room-message-list__cta">
           <h1>Select a room to start chatting!</h1>
         </div>
       );
-    } else {
-      return messages.map((message, index) => {
-        const messageAlignment = this.isMessageFromCurrentUser(message)
-          ? "right"
-          : "left";
-
-        return (
-          <div
-            key={index}
-            className={`chat-room-message-list__item-container___${messageAlignment}`}
-          >
-            <ChatRoomMessageListItem message={message} />
-          </div>
-        );
-      });
     }
   }
 

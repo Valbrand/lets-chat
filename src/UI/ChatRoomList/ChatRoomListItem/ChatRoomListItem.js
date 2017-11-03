@@ -4,10 +4,10 @@ import "./ChatRoomListItem.css";
 
 export default class ChatRoomListItem extends PureComponent {
   render() {
-    const { chatRoom } = this.props;
+    const { chatRoom, onSelect } = this.props;
 
     return (
-      <div className="chat-room-list-item__root">
+      <div className="chat-room-list-item__root" onClick={onSelect}>
         <h2 className="chat-room-list-item__name">{chatRoom.name}</h2>
         {chatRoom.lastMessage ? (
           <div>

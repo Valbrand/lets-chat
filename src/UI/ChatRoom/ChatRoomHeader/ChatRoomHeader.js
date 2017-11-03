@@ -5,7 +5,7 @@ import "./ChatRoomHeader.css";
 export default class ChatRoomHeader extends Component {
   render() {
     const { chatRoomData } = this.props;
-    const isChatOpen = chatRoomData !== null;
+    const isChatOpen = chatRoomData != null;
 
     return (
       <h1 className="chat-room-header__root">
