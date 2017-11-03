@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import "./ChatRoomList.css";
 import ChatRoomListItem from "./ChatRoomListItem/ChatRoomListItem";
 import CreateChatRoomButton from "./CreateChatRoomButton/CreateChatRoomButton";
 
-export default class ChatRoomList extends Component {
+class ChatRoomList extends Component {
   render() {
     const { chatRooms } = this.props;
 
@@ -22,3 +23,12 @@ export default class ChatRoomList extends Component {
     );
   }
 }
+
+function mapState(state) {
+  return {
+    chatRooms: state.chatRooms,
+    currentUser: state.currentUser
+  };
+}
+
+export default connect(mapState, {})(ChatRoomList);

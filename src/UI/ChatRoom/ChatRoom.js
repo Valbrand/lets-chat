@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import "./ChatRoom.css";
 import ChatRoomHeader from "./ChatRoomHeader/ChatRoomHeader";
 import ChatRoomMessageList from "./ChatRoomMessageList/ChatRoomMessageList";
 import ChatRoomMessageInput from "./ChatRoomMessageInput/ChatRoomMessageInput";
 
-export default class ChatRoom extends Component {
+class ChatRoom extends Component {
   render() {
     const { chatRoomData, messages, currentUser } = this.props;
 
@@ -31,3 +32,20 @@ export default class ChatRoom extends Component {
     );
   }
 }
+
+function mapState(state) {
+  const { selectedChatRoom, chatRooms, messages, currentUser } = state;
+
+  const selectedChatRoomData =
+    selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
+  const selectedChatRoomMessages =
+    selectedChatRoom === null ? null : messages[selectedChatRoom];
+
+  return {
+    chatRoomData: selectedChatRoomData,
+    messages: selectedChatRoomMessages,
+    currentUser: currentUser
+  };
+}
+
+export default connect(mapState, {})(ChatRoom);
