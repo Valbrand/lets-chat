@@ -1,4 +1,4 @@
-.create-chat-room-button {
+.create-chat-room-button__root {
   padding: 1rem;
   text-align: center;
   border: none;
@@ -7,6 +7,6 @@
   border-bottom: 1px solid #ccc;
 }
 
-.create-chat-room-button:hover {
+.create-chat-room-button__root:hover {
   background: #eee;
 }

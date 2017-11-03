@@ -9,8 +9,8 @@ export default class ChatRoomList extends Component {
     const { chatRooms } = this.props;
 
     return (
-      <div className="chat-room-list-root">
-        <h1 className="chat-room-list-header">Chat rooms</h1>
+      <div className="chat-room-list__root">
+        <h1 className="chat-room-list__header">Chat rooms</h1>
         {Object.keys(chatRooms)
           .map(roomId => {
             const chatRoom = chatRooms[roomId];

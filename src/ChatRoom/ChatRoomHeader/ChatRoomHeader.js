@@ -8,7 +8,7 @@ export default class ChatRoomHeader extends Component {
     const isChatOpen = chatRoomData !== null;
 
     return (
-      <h1 className="chat-room-header">
+      <h1 className="chat-room-header__root">
         {isChatOpen ? chatRoomData.name : "Let's chat!"}
       </h1>
     );

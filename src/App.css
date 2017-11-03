@@ -1,4 +1,4 @@
-.app-root {
+.app__root {
   width: 80vw;
   margin: 0 auto;
   height: 100vh;
@@ -7,18 +7,18 @@
   justify-content: center;
 }
 
-.chat-container {
+.app__chat-container {
   height: 80vh;
   display: flex;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.left-column {
+.app__left-column {
   flex: 0 0 25%;
   border-right: 1px solid #ccc;
 }
 
-.right-column {
+.app__right-column {
   flex: 1 0 0;
 }

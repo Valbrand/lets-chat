@@ -1,9 +1,9 @@
-.chat-room-list-root {
+.chat-room-list__root {
   height: 100%;
   overflow: scroll;
 }
 
-.chat-room-list-header {
+.chat-room-list__header {
   font-size: 1.5rem;
   border-bottom: 1px solid #ccc;
   padding: 0.5rem;

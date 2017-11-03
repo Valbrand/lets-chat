@@ -7,12 +7,12 @@ export default class ChatRoomListItem extends Component {
     const { chatRoom } = this.props;
 
     return (
-      <div className="chat-room-list-item-root">
-        <h2 className="chat-room-list-item-name">{chatRoom.name}</h2>
-        <p className="chat-room-list-item-last-message-sender">
+      <div className="chat-room-list-item__root">
+        <h2 className="chat-room-list-item__name">{chatRoom.name}</h2>
+        <p className="chat-room-list-item__last-message-sender">
           {chatRoom.lastMessage.sender}
         </p>
-        <p className="chat-room-list-item-last-message-content">
+        <p className="chat-room-list-item__last-message-content">
           {chatRoom.lastMessage.content}
         </p>
       </div>
