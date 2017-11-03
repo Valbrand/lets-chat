@@ -63,7 +63,7 @@ export default class ChatRoomMessageList extends Component {
   }
 
   isMessageFromCurrentUser(message) {
-    return message.sender === this.props.currentUser;
+    return message.sender.id === this.props.currentUser.id;
   }
 
   componentDidMount() {

@@ -41,8 +41,6 @@ export default class ChatRoomMessageInput extends Component {
     const { message } = this.state;
     const { chatRoomData, currentUser } = this.props;
 
-    debugger;
-
     this.messagesService.sendMessage(chatRoomData.id, currentUser, message);
   };
 }

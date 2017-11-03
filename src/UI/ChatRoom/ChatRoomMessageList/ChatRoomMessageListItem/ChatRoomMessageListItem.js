@@ -10,7 +10,7 @@ export default class ChatRoomMessageListItem extends Component {
       <div className="chat-room-message-list-item__root">
         <div className="chat-room-message-list-item__balloon">
           <p className="chat-room-message-list-item__sender">
-            {message.sender}
+            {message.sender.name}
           </p>
           <p className="chat-room-message-list-item__content">
             {message.content}

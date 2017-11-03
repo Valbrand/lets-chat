@@ -9,8 +9,12 @@ import createStore from "./state/createStore";
 import "./firebase/startFirebaseService";
 import { createChatRoomListWatcher } from "./firebase/stateIntegration/chatRoomListWatcher";
 import { createMessagesWatcher } from "./firebase/stateIntegration/messagesWatcher";
+import { createAuthStateWatcher } from "./firebase/stateIntegration/authStateWatcher";
 
 const store = createStore();
+
+const authStateWatcher = createAuthStateWatcher(store);
+authStateWatcher.start();
 
 const stateIntegrationManager = createChatRoomListWatcher(store);
 stateIntegrationManager.watchChatRooms();

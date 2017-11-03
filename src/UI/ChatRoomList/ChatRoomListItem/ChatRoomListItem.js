@@ -12,7 +12,7 @@ export default class ChatRoomListItem extends PureComponent {
         {chatRoom.lastMessage ? (
           <div>
             <p className="chat-room-list-item__last-message-sender">
-              {chatRoom.lastMessage.sender}
+              {chatRoom.lastMessage.sender.name}
             </p>
             <p className="chat-room-list-item__last-message-content">
               {chatRoom.lastMessage.content}

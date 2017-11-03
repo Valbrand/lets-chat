@@ -20,13 +20,13 @@ export default function createMessagesService() {
       const messageReference = firestore
         .collection(`${chatRoomPath}/messages`)
         .doc();
-      const chatRoomReference = firestore.document(`${chatRoomPath}`);
+      const chatRoomReference = firestore.doc(`${chatRoomPath}`);
 
       const batchWrite = firestore.batch();
 
       batchWrite.set(messageReference, messageObject);
 
-      batchWrite.set(chatRoomReference, {
+      batchWrite.update(chatRoomReference, {
         lastMessage: messageObject
       });
 
@@ -42,7 +42,7 @@ export default function createMessagesService() {
         .onSnapshot(querySnapshot => {
           const newMessages = querySnapshot.docChanges
             .filter(docChange => docChange.type === "added")
-            .map(addedMessage => addedMessage.data());
+            .map(addedMessage => addedMessage.doc.data());
 
           callback(newMessages);
         });
