@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./UI/App";
 import registerServiceWorker from "./registerServiceWorker";
 import createStore from "./state/createStore";
+import "./firebase/startFirebaseService";
 
 const store = createStore();
 
