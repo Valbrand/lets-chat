@@ -17,7 +17,7 @@ export default class ChatRoomMessageListItem extends Component {
           </p>
         </div>
         <p className="chat-room-message-list-item__timestamp">
-          {message.timestamp.valueOf()}
+          {message.timestamp && message.timestamp.valueOf()}
         </p>
       </div>
     );

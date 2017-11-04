@@ -37,10 +37,22 @@ class ChatRoom extends Component {
   }
 
   componentDidUpdate(previousProps) {
+    this.adjustMessageListenersIfNeeded(previousProps);
+  }
+
+  adjustMessageListenersIfNeeded(previousProps) {
     const currentChatRoomData = this.props.chatRoomData;
     const previousChatRoomData = previousProps.chatRoomData;
 
-    if (currentChatRoomData !== previousChatRoomData) {
+    const hasUserEnteredARoom =
+      previousChatRoomData == null && currentChatRoomData != null;
+    const hasUserLeftARoom = currentChatRoomData == null;
+    const hasUserChangedRooms =
+      previousChatRoomData != null &&
+      currentChatRoomData != null &&
+      previousChatRoomData.id !== currentChatRoomData.id;
+
+    if (hasUserLeftARoom || hasUserEnteredARoom || hasUserChangedRooms) {
       const { messagesWatcher } = this.props;
 
       messagesWatcher.stopWatchingForMessages();

@@ -38,7 +38,9 @@ export default function createAuthService(store) {
 
     observeAuthState(userId, callback) {
       firestore.doc(`/users/${userId}`).onSnapshot(snapshot => {
-        callback(snapshot.data());
+        if (snapshot.exists) {
+          callback(snapshot.data());
+        }
       });
     }
   };

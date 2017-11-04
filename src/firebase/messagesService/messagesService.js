@@ -39,6 +39,7 @@ export default function createMessagesService() {
       unsubscribeLastListener();
       unsubscribeLastListener = firestore
         .collection(messageCollectionPath)
+        .orderBy("timestamp")
         .onSnapshot(querySnapshot => {
           const newMessages = querySnapshot.docChanges
             .filter(docChange => docChange.type === "added")
