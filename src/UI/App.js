@@ -12,10 +12,14 @@ class App extends Component {
       <div className="app__root">
         <div className="app__chat-container">
           <div className="app__left-column">
-            <ChatRoomList />
+            <div className="app__column-inner-container">
+              <ChatRoomList />
+            </div>
           </div>
           <div className="app__right-column">
-            <ChatRoom messagesWatcher={messagesWatcher} />
+            <div className="app__column-inner-container">
+              <ChatRoom messagesWatcher={messagesWatcher} />
+            </div>
           </div>
         </div>
       </div>

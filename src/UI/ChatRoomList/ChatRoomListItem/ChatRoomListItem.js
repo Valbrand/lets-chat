@@ -10,7 +10,7 @@ export default class ChatRoomListItem extends PureComponent {
       <div className="chat-room-list-item__root" onClick={onSelect}>
         <h2 className="chat-room-list-item__name">{chatRoom.name}</h2>
         {chatRoom.lastMessage ? (
-          <div>
+          <div className="chat-room-list-item__last-message-container">
             <p className="chat-room-list-item__last-message-sender">
               {chatRoom.lastMessage.sender.name}
             </p>
@@ -19,7 +19,11 @@ export default class ChatRoomListItem extends PureComponent {
             </p>
           </div>
         ) : (
-          <p>No messages here yet.</p>
+          <div className="chat-room-list-item__last-message-container">
+            <p className="chat-room-list-item__no-messages-warning">
+              No messages here yet.
+            </p>
+          </div>
         )}
       </div>
     );

@@ -9,6 +9,7 @@
 
 .app__chat-container {
   height: 80vh;
+  width: 100%;
   display: flex;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -17,8 +18,18 @@
 .app__left-column {
   flex: 0 0 25%;
   border-right: 1px solid #ccc;
+  position: relative;
 }
 
 .app__right-column {
   flex: 1 0 0;
+  position: relative;
+}
+
+.app__column-inner-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }

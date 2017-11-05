@@ -66,6 +66,10 @@ export default class ChatRoomMessageList extends Component {
     return message.sender.id === this.props.currentUser.id;
   }
 
+  componentDidUpdate() {
+    this.root.scrollTop = this.root.scrollHeight;
+  }
+
   componentDidMount() {
     this.root.scrollTop = this.root.scrollHeight;
   }

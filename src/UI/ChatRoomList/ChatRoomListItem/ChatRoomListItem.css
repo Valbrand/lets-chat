@@ -17,7 +17,18 @@
   font-weight: bold;
 }
 
+.chat-room-list-item__last-message-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+}
+
 .chat-room-list-item__last-message-time {
   color: #999;
   font-size: 0.8rem;
+}
+
+.chat-room-list-item__no-messages-warning {
+  font-style: italic;
+  font-size: 0.9rem;
 }
