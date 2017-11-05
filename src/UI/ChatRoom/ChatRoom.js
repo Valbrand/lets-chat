@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import "./ChatRoom.css";
 import ChatRoomHeader from "./ChatRoomHeader/ChatRoomHeader";
 import ChatRoomMessageList from "./ChatRoomMessageList/ChatRoomMessageList";
 import ChatRoomMessageInput from "./ChatRoomMessageInput/ChatRoomMessageInput";
 
-export default class ChatRoom extends Component {
+class ChatRoom extends Component {
   render() {
     const { chatRoomData, messages, currentUser } = this.props;
 
@@ -20,14 +21,60 @@ export default class ChatRoom extends Component {
             <ChatRoomMessageList
               messages={messages}
               currentUser={currentUser}
+              isAnyRoomSelected={chatRoomData != null}
             />
           </div>
         </div>
 
         <div className="chat-room__message-input-container">
-          <ChatRoomMessageInput />
+          <ChatRoomMessageInput
+            chatRoomData={chatRoomData}
+            currentUser={currentUser}
+          />
         </div>
       </div>
     );
   }
+
+  componentDidUpdate(previousProps) {
+    this.adjustMessageListenersIfNeeded(previousProps);
+  }
+
+  adjustMessageListenersIfNeeded(previousProps) {
+    const currentChatRoomData = this.props.chatRoomData;
+    const previousChatRoomData = previousProps.chatRoomData;
+
+    const hasUserEnteredARoom =
+      previousChatRoomData == null && currentChatRoomData != null;
+    const hasUserLeftARoom = currentChatRoomData == null;
+    const hasUserChangedRooms =
+      previousChatRoomData != null &&
+      currentChatRoomData != null &&
+      previousChatRoomData.id !== currentChatRoomData.id;
+
+    if (hasUserLeftARoom || hasUserEnteredARoom || hasUserChangedRooms) {
+      const { messagesWatcher } = this.props;
+
+      messagesWatcher.stopWatchingForMessages();
+
+      if (currentChatRoomData != null) {
+        messagesWatcher.watchForMessagesInRoom(currentChatRoomData.id);
+      }
+    }
+  }
 }
+
+function mapState(state) {
+  const { selectedChatRoom, chatRooms, messages, currentUser } = state;
+
+  const selectedChatRoomData =
+    selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
+
+  return {
+    chatRoomData: selectedChatRoomData,
+    messages,
+    currentUser: currentUser
+  };
+}
+
+export default connect(mapState, {})(ChatRoom);

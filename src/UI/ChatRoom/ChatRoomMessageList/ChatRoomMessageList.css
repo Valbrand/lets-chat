@@ -1,5 +1,6 @@
 .chat-room-message-list__root {
   height: 100%;
+  width: 100%;
   overflow: scroll;
 }
 
@@ -10,6 +11,7 @@
   position: relative;
   padding: 0.5rem;
   min-height: 100%;
+  width: 100%;
 }
 
 .chat-room-message-list__cta {
@@ -21,8 +23,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+}
+
+.chat-room-message-list__item-container___left {
+  align-self: flex-start;
+  max-width: 50%;
 }
 
 .chat-room-message-list__item-container___right {
   align-self: flex-end;
+  max-width: 50%;
 }
