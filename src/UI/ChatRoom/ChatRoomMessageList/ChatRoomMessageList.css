@@ -23,6 +23,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .chat-room-message-list__item-container___left {

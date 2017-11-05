@@ -1,5 +1,6 @@
 // Action types
 const ADD_MESSAGES = "lets-chat/ADD_MESSAGES";
+const CLEAR_MESSAGES = "lets-chat/CLEAR_MESSAGES";
 
 // Action creators
 export function addMessages(messages) {
@@ -8,6 +9,12 @@ export function addMessages(messages) {
     payload: {
       messages
     }
+  };
+}
+
+export function clearMessages() {
+  return {
+    type: CLEAR_MESSAGES
   };
 }
 
@@ -20,6 +27,8 @@ export default function messagesReducer(state = null, action) {
       } else {
         return [...state, ...action.payload.messages];
       }
+    case CLEAR_MESSAGES:
+      return null;
     default:
       return state;
   }
