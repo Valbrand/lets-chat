@@ -1,0 +1,34 @@
+.chat-room-list-item__root {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.chat-room-list-item__root:hover {
+  background-color: #eee;
+}
+
+.chat-room-list-item__name {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.chat-room-list-item__last-message-sender {
+  font-weight: bold;
+}
+
+.chat-room-list-item__last-message-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+}
+
+.chat-room-list-item__last-message-time {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.chat-room-list-item__no-messages-warning {
+  font-style: italic;
+  font-size: 0.9rem;
+}

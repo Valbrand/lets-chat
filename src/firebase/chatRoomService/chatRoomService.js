@@ -6,9 +6,14 @@ export default function createChatRoomService() {
 
   return {
     createChatRoom(name) {
-      return firestore.collection("chatRooms").add({
-        name
-      });
+      return firestore
+        .collection("chatRooms")
+        .add({
+          name
+        })
+        .then(document => {
+          return document.id;
+        });
     },
 
     observeRoomList(callback) {

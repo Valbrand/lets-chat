@@ -1,9 +1,6 @@
-import createChatRoomService from "../chatRoomService/chatRoomService";
 import { addChatRoom, removeChatRoom } from "../../state/chatRooms/chatRooms";
 
-export function createChatRoomListWatcher(store) {
-  const chatRoomService = createChatRoomService();
-
+export function createChatRoomListWatcher(chatRoomService, store) {
   return {
     watchChatRooms() {
       chatRoomService.observeRoomList(({ added, modified, removed }) => {
