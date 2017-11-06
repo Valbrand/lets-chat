@@ -1,9 +1,7 @@
 import createMessagesService from "../messagesService/messagesService";
 import { addMessages } from "../../state/messages/messages";
 
-export function createMessagesWatcher(store) {
-  const messagesService = createMessagesService();
-
+export function createMessagesWatcher(messagesService, store) {
   return {
     watchForMessagesInRoom(roomId) {
       messagesService.observeChatRoomMessages(roomId, messages => {

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import "./ChatRoom.css";
-import ChatRoomHeader from "./ChatRoomHeader/ChatRoomHeader";
-import ChatRoomMessageList from "./ChatRoomMessageList/ChatRoomMessageList";
-import ChatRoomMessageInput from "./ChatRoomMessageInput/ChatRoomMessageInput";
+import "./ChatRoomView.css";
+import ChatRoomHeader from "./components/ChatRoomHeader/ChatRoomHeader";
+import ChatRoomMessageList from "./components/ChatRoomMessageList/ChatRoomMessageList";
+import ChatRoomMessageInput from "./components/ChatRoomMessageInput/ChatRoomMessageInput";
 
-class ChatRoom extends Component {
+export default class ChatRoomView extends Component {
   render() {
-    const { chatRoomData, messages, currentUser } = this.props;
+    const { chatRoomData, messages, currentUser, sendMessage } = this.props;
 
     return (
       <div className="chat-room__root">
@@ -30,6 +30,7 @@ class ChatRoom extends Component {
           <ChatRoomMessageInput
             chatRoomData={chatRoomData}
             currentUser={currentUser}
+            sendMessage={sendMessage}
           />
         </div>
       </div>
@@ -41,7 +42,11 @@ class ChatRoom extends Component {
   }
 
   adjustMessageListenersIfNeeded(previousProps) {
-    const currentChatRoomData = this.props.chatRoomData;
+    const {
+      chatRoomData: currentChatRoomData,
+      stopWatchingForMessages,
+      watchForMessagesInRoom
+    } = this.props;
     const previousChatRoomData = previousProps.chatRoomData;
 
     const hasUserEnteredARoom =
@@ -55,26 +60,11 @@ class ChatRoom extends Component {
     if (hasUserLeftARoom || hasUserEnteredARoom || hasUserChangedRooms) {
       const { messagesWatcher } = this.props;
 
-      messagesWatcher.stopWatchingForMessages();
+      stopWatchingForMessages();
 
       if (currentChatRoomData != null) {
-        messagesWatcher.watchForMessagesInRoom(currentChatRoomData.id);
+        watchForMessagesInRoom(currentChatRoomData.id);
       }
     }
   }
 }
-
-function mapState(state) {
-  const { selectedChatRoom, chatRooms, messages, currentUser } = state;
-
-  const selectedChatRoomData =
-    selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
-
-  return {
-    chatRoomData: selectedChatRoomData,
-    messages,
-    currentUser: currentUser
-  };
-}
-
-export default connect(mapState, {})(ChatRoom);

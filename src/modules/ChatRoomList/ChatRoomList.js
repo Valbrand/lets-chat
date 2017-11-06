@@ -28,7 +28,7 @@ export function createChatRoomListModule(chatRoomService) {
   }
 
   return {
-    initialize() {
+    render() {
       const View = connect(stateMapper, dispatchMapper)(ChatRoomListView);
       return <View />;
     }

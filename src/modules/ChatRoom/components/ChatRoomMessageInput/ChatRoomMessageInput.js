@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 
 import "./ChatRoomMessageInput.css";
-import createMessagesService from "../../../firebase/messagesService/messagesService";
 
 export default class ChatRoomMessageInput extends Component {
-  messagesService = createMessagesService();
   state = {
     message: ""
   };
@@ -39,8 +37,11 @@ export default class ChatRoomMessageInput extends Component {
     event.preventDefault();
 
     const { message } = this.state;
-    const { chatRoomData, currentUser } = this.props;
+    const { chatRoomData, currentUser, sendMessage } = this.props;
 
-    this.messagesService.sendMessage(chatRoomData.id, currentUser, message);
+    this.setState({
+      message: ""
+    });
+    sendMessage(chatRoomData.id, currentUser, message);
   };
 }
