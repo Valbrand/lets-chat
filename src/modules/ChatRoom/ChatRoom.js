@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 import ChatRoomView from "./ChatRoomView";
+import { addMessages } from "../../state/messages/messages";
 
-export function createChatRoomModule(messagesWatcher, messagesService) {
+export function createChatRoomModule(messagesService) {
   function stateMapper(state) {
     const { selectedChatRoom, chatRooms, messages, currentUser } = state;
 
@@ -18,11 +19,19 @@ export function createChatRoomModule(messagesWatcher, messagesService) {
   }
 
   function dispatchMapper(dispatch) {
-    return {};
+    return {
+      watchForMessagesInRoom(roomId) {
+        messagesService.observeChatRoomMessages(roomId, messages => {
+          dispatch(addMessages(messages));
+        });
+      }
+    };
   }
 
-  const { stopWatchingForMessages, watchForMessagesInRoom } = messagesWatcher;
-  const { sendMessage } = messagesService;
+  const {
+    sendMessage,
+    stopObservingChatRoomMessages: stopWatchingForMessages
+  } = messagesService;
 
   return {
     render() {
@@ -30,7 +39,6 @@ export function createChatRoomModule(messagesWatcher, messagesService) {
       return (
         <View
           stopWatchingForMessages={stopWatchingForMessages}
-          watchForMessagesInRoom={watchForMessagesInRoom}
           sendMessage={sendMessage}
         />
       );

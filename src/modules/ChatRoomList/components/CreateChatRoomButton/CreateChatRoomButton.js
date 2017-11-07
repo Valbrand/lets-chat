@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import "./CreateChatRoomButton.css";
-import randomName from "../../../../utils/randomName/randomName";
 
 export default class CreateChatRoomButton extends Component {
   render() {
@@ -16,6 +15,6 @@ export default class CreateChatRoomButton extends Component {
   }
 
   createChatRoom = () => {
-    this.props.createChatRoom(randomName());
+    this.props.createChatRoom();
   };
 }

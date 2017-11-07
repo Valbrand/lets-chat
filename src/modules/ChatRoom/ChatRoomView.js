@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 
 import "./ChatRoomView.css";
 import ChatRoomHeader from "./components/ChatRoomHeader/ChatRoomHeader";
@@ -42,11 +41,7 @@ export default class ChatRoomView extends Component {
   }
 
   adjustMessageListenersIfNeeded(previousProps) {
-    const {
-      chatRoomData: currentChatRoomData,
-      stopWatchingForMessages,
-      watchForMessagesInRoom
-    } = this.props;
+    const currentChatRoomData = this.props.chatRoomData;
     const previousChatRoomData = previousProps.chatRoomData;
 
     const hasUserEnteredARoom =
@@ -58,7 +53,7 @@ export default class ChatRoomView extends Component {
       previousChatRoomData.id !== currentChatRoomData.id;
 
     if (hasUserLeftARoom || hasUserEnteredARoom || hasUserChangedRooms) {
-      const { messagesWatcher } = this.props;
+      const { stopWatchingForMessages, watchForMessagesInRoom } = this.props;
 
       stopWatchingForMessages();
 

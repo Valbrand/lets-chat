@@ -7,7 +7,7 @@ import { createChatRoomModule } from "./ChatRoom/ChatRoom";
 
 class App extends Component {
   render() {
-    const { messagesWatcher, chatRoomService, messagesService } = this.props;
+    const { chatRoomService, messagesService } = this.props;
 
     return (
       <div className="app__root">
@@ -19,7 +19,7 @@ class App extends Component {
           </div>
           <div className="app__right-column">
             <div className="app__column-inner-container">
-              {createChatRoomModule(messagesWatcher, messagesService).render()}
+              {createChatRoomModule(messagesService).render()}
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import ChatRoomListView from "./ChatRoomListView";
 import { selectChatRoom } from "../../state/selectedChatRoom/selectedChatRoom";
+import randomName from "../../utils/randomName/randomName";
 
 export function createChatRoomListModule(chatRoomService) {
   function stateMapper(state) {
@@ -15,8 +16,8 @@ export function createChatRoomListModule(chatRoomService) {
 
   function dispatchMapper(dispatch) {
     return {
-      createChatRoom(roomName) {
-        chatRoomService.createChatRoom(roomName).then(roomId => {
+      createChatRoom() {
+        chatRoomService.createChatRoom(randomName()).then(roomId => {
           dispatch(selectChatRoom(roomId));
         });
       },
