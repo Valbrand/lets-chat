@@ -1,11 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
+import { Observer } from "mobx-react";
 
 import ChatRoomListView from "./ChatRoomListView";
-import { selectChatRoom } from "../../state/selectedChatRoom/selectedChatRoom";
 import randomName from "../../utils/randomName/randomName";
 
-export function createChatRoomListModule(chatRoomService) {
+export function createChatRoomListModule(chatRoomService, store) {
   function stateMapper(state) {
     const chatRooms = Object.keys(state.chatRooms)
       .map(roomId => state.chatRooms[roomId])
@@ -18,24 +17,32 @@ export function createChatRoomListModule(chatRoomService) {
     };
   }
 
-  function dispatchMapper(dispatch) {
+  function actionMapper(store) {
     return {
       createChatRoom() {
         chatRoomService.createChatRoom(randomName()).then(roomId => {
-          dispatch(selectChatRoom(roomId));
+          store.selectChatRoom(roomId);
         });
       },
 
       selectChatRoom(roomId) {
-        dispatch(selectChatRoom(roomId));
+        store.selectChatRoom(roomId);
       }
     };
   }
 
   return {
     render() {
-      const View = connect(stateMapper, dispatchMapper)(ChatRoomListView);
-      return <View />;
+      return (
+        <Observer>
+          {() => {
+            const mappedState = stateMapper(store);
+            const mappedActions = actionMapper(store);
+
+            return <ChatRoomListView {...mappedState} {...mappedActions} />;
+          }}
+        </Observer>
+      );
     }
   };
 }

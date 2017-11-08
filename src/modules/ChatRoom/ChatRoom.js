@@ -1,10 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
+import { Observer } from "mobx-react";
 
 import ChatRoomView from "./ChatRoomView";
-import { addMessages } from "../../state/messages/messages";
 
-export function createChatRoomModule(messagesService) {
+export function createChatRoomModule(messagesService, store) {
   function stateMapper(state) {
     const { selectedChatRoom, chatRooms, messages, currentUser } = state;
 
@@ -18,11 +17,11 @@ export function createChatRoomModule(messagesService) {
     };
   }
 
-  function dispatchMapper(dispatch) {
+  function actionsMapper(store) {
     return {
       watchForMessagesInRoom(roomId) {
         messagesService.observeChatRoomMessages(roomId, messages => {
-          dispatch(addMessages(messages));
+          store.addMessages(messages);
         });
       }
     };
@@ -35,12 +34,22 @@ export function createChatRoomModule(messagesService) {
 
   return {
     render() {
-      const View = connect(stateMapper, dispatchMapper)(ChatRoomView);
       return (
-        <View
-          stopWatchingForMessages={stopWatchingForMessages}
-          sendMessage={sendMessage}
-        />
+        <Observer>
+          {() => {
+            const mappedState = stateMapper(store);
+            const mappedActions = actionsMapper(store);
+
+            return (
+              <ChatRoomView
+                {...mappedState}
+                {...mappedActions}
+                stopWatchingForMessages={stopWatchingForMessages}
+                sendMessage={sendMessage}
+              />
+            );
+          }}
+        </Observer>
       );
     }
   };

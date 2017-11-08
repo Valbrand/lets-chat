@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
 
 import "./index.css";
 import App from "./modules/App";
@@ -24,9 +23,11 @@ chatRoomListWatcher.watchChatRooms();
 const messagesService = createMessagesService();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App chatRoomService={chatRoomService} messagesService={messagesService} />
-  </Provider>,
+  <App
+    chatRoomService={chatRoomService}
+    messagesService={messagesService}
+    store={store}
+  />,
   document.getElementById("root")
 );
 registerServiceWorker();
