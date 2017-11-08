@@ -5,14 +5,14 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./modules/App";
 import registerServiceWorker from "./registerServiceWorker";
-import createStore from "./state/createStore";
+import LetsChatStore from "./state/LetsChatStore";
 import "./firebase/startFirebaseService";
 import createChatRoomService from "./firebase/chatRoomService/chatRoomService";
 import createMessagesService from "./firebase/messagesService/messagesService";
 import { createChatRoomListWatcher } from "./firebase/stateIntegration/chatRoomListWatcher";
 import { createAuthStateWatcher } from "./firebase/stateIntegration/authStateWatcher";
 
-const store = createStore();
+const store = new LetsChatStore();
 
 const authStateWatcher = createAuthStateWatcher(store);
 authStateWatcher.start();

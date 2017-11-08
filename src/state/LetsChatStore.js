@@ -1,14 +1,28 @@
-import { observable, action } from "mobx";
+import { action, extendObservable } from "mobx";
 
 export default class LetsChatStore {
-  @observable chatRooms = {};
-  @observable currentUser = null;
-  @observable messages = [];
-  @observable selectedChatRoom = null;
+  constructor() {
+    extendObservable(this, {
+      chatRooms: {},
+      currentUser: null,
+      messages: [],
+      selectedChatRoom: null,
 
-  @action
-  selectChatRoom = roomId => {
-    this.messages = [];
-    this.selectedChatRoom = roomId;
-  };
+      selectChatRoom: action(roomId => {
+        if (roomId !== this.selectedChatRoom) {
+          this.messages = [];
+        }
+        this.selectedChatRoom = roomId;
+      }),
+      changeUser: action(user => {
+        this.currentUser = user;
+      }),
+      addChatRoom: action((roomId, room) => {
+        this.chatRooms[roomId] = room;
+      }),
+      removeChatRoom: action(roomId => {
+        this.chatRooms[roomId] = undefined;
+      })
+    });
+  }
 }

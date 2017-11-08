@@ -1,5 +1,3 @@
-import { addChatRoom, removeChatRoom } from "../../state/chatRooms/chatRooms";
-
 export function createChatRoomListWatcher(chatRoomService, store) {
   return {
     watchChatRooms() {
@@ -8,7 +6,7 @@ export function createChatRoomListWatcher(chatRoomService, store) {
           Object.keys(added).forEach(addedRoomId => {
             const addedRoom = added[addedRoomId];
 
-            store.dispatch(addChatRoom(addedRoomId, addedRoom));
+            store.addChatRoom(addedRoomId, addedRoom);
           });
         }
 
@@ -16,13 +14,13 @@ export function createChatRoomListWatcher(chatRoomService, store) {
           Object.keys(modified).forEach(modifiedRoomId => {
             const modifiedRoom = modified[modifiedRoomId];
 
-            store.dispatch(addChatRoom(modifiedRoomId, modifiedRoom));
+            store.addChatRoom(modifiedRoomId, modifiedRoom);
           });
         }
 
         if (removed) {
           Object.keys(removed).forEach(removedRoomId => {
-            store.dispatch(removeChatRoom(removedRoomId));
+            store.removeChatRoom(removedRoomId);
           });
         }
       });
