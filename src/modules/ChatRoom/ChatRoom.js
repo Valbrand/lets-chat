@@ -8,7 +8,7 @@ export function createChatRoomModule(messagesService, store) {
     const { selectedChatRoom, chatRooms, messages, currentUser } = state;
 
     const selectedChatRoomData =
-      selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
+      selectedChatRoom === null ? null : chatRooms.get(selectedChatRoom);
 
     return {
       chatRoomData: selectedChatRoomData,
