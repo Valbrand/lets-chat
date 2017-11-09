@@ -11,15 +11,13 @@ export default class ChatRoomListView extends Component {
     return (
       <div className="chat-room-list__root">
         <h1 className="chat-room-list__header">Chat rooms</h1>
-        {Object.keys(chatRooms)
-          .map(roomId => {
-            const chatRoom = chatRooms[roomId];
-
+        {chatRooms
+          .map(chatRoom => {
             return (
               <ChatRoomListItem
-                key={roomId}
+                key={chatRoom.id}
                 chatRoom={chatRoom}
-                onSelect={this.chatRoomSelectionHandler(roomId)}
+                onSelect={this.chatRoomSelectionHandler(chatRoom.id)}
               />
             );
           })

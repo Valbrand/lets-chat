@@ -7,8 +7,12 @@ import randomName from "../../utils/randomName/randomName";
 
 export function createChatRoomListModule(chatRoomService) {
   function stateMapper(state) {
+    const chatRooms = Object.keys(state.chatRooms)
+      .map(roomId => state.chatRooms[roomId])
+      .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+
     return {
-      chatRooms: state.chatRooms,
+      chatRooms,
       currentUser: state.currentUser,
       selectedChatRoom: state.selectedChatRoom
     };
