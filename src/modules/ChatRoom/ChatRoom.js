@@ -1,47 +1,40 @@
-import React from "react";
-import { connect } from "react-redux";
+import { moduleAssembler } from "../../assemblers/moduleAssembler";
+import ChatRoomView from "../../views/ChatRoomView/ChatRoomView";
 
-import ChatRoomView from "./ChatRoomView";
-import { addMessages } from "../../state/messages/messages";
+function createChatRoomViewModel(state) {
+  const { selectedChatRoom, chatRooms, messages, currentUser } = state;
 
-export function createChatRoomModule(messagesService) {
-  function stateMapper(state) {
-    const { selectedChatRoom, chatRooms, messages, currentUser } = state;
-
-    const selectedChatRoomData =
-      selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
-
-    return {
-      chatRoomData: selectedChatRoomData,
-      messages,
-      currentUser: currentUser
-    };
-  }
-
-  function dispatchMapper(dispatch) {
-    return {
-      watchForMessagesInRoom(roomId) {
-        messagesService.observeChatRoomMessages(roomId, messages => {
-          dispatch(addMessages(messages));
-        });
-      }
-    };
-  }
-
-  const {
-    sendMessage,
-    stopObservingChatRoomMessages: stopWatchingForMessages
-  } = messagesService;
+  const selectedChatRoomData =
+    selectedChatRoom === null ? null : chatRooms[selectedChatRoom];
 
   return {
-    render() {
-      const View = connect(stateMapper, dispatchMapper)(ChatRoomView);
-      return (
-        <View
-          stopWatchingForMessages={stopWatchingForMessages}
-          sendMessage={sendMessage}
-        />
-      );
-    }
+    chatRoomData: selectedChatRoomData,
+    messages,
+    currentUser: currentUser
   };
+}
+
+function createChatRoomController(messagesService, storeService) {
+  return {
+    watchForMessagesInRoom(roomId) {
+      messagesService.observeChatRoomMessages(roomId, messages => {
+        storeService.addMessages(messages);
+      });
+    },
+    sendMessage: messagesService.sendMessage,
+    stopWatchingForMessages: messagesService.stopObservingChatRoomMessages
+  };
+}
+
+export function createChatRoomModule(messagesService, storeService) {
+  const chatRoomController = createChatRoomController(
+    messagesService,
+    storeService
+  );
+
+  return moduleAssembler(
+    createChatRoomViewModel,
+    chatRoomController,
+    ChatRoomView
+  );
 }

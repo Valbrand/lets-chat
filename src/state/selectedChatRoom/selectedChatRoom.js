@@ -13,6 +13,10 @@ export function selectChatRoom(roomId) {
   };
 }
 
+export const actionCreators = {
+  selectChatRoom
+};
+
 // Reducer
 export default function selectedChatRoomReducer(state = null, action) {
   switch (action.type) {

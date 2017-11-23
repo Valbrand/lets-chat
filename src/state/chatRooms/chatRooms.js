@@ -22,6 +22,11 @@ export function removeChatRoom(ids) {
   };
 }
 
+export const actionCreators = {
+  addChatRoom,
+  removeChatRoom
+};
+
 export default function chatRoomsReducer(state = {}, action) {
   switch (action.type) {
     case ADD_CHAT_ROOM:

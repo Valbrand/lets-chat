@@ -18,6 +18,11 @@ export function clearMessages() {
   };
 }
 
+export const actionCreators = {
+  addMessages,
+  clearMessages
+};
+
 // Reducer
 export default function messagesReducer(state = null, action) {
   switch (action.type) {

@@ -11,6 +11,10 @@ export function changeUser(user) {
   };
 }
 
+export const actionCreators = {
+  changeUser
+};
+
 // Reducer
 export default function currentUserReducer(state = null, action) {
   switch (action.type) {
