@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import "firebase/firestore";
 
-export default function createMessagesService() {
+export function createFirebaseMessagesService() {
   const firestore = firebase.firestore();
   let unsubscribeLastListener = () => {};
 

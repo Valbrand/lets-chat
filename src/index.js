@@ -7,7 +7,7 @@ import { createAppModule } from "./modules/App/App";
 import registerServiceWorker from "./registerServiceWorker";
 import createStore from "./state/createStore";
 import "./firebase/startFirebaseService";
-import createMessagesService from "./firebase/messagesService/messagesService";
+import { createMessagesService } from "./services/createMessagesService";
 import { createAuthService } from "./services/createAuthService";
 import { createChatRoomService } from "./services/createChatRoomService";
 import { createStoreService } from "./services/createStoreService";
