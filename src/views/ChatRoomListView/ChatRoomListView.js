@@ -35,4 +35,12 @@ export default class ChatRoomListView extends Component {
       }
     };
   };
+
+  componentDidMount() {
+    this.props.observeChatRooms();
+  }
+
+  componentWillUnmount() {
+    this.props.stopObservingChatRooms();
+  }
 }
