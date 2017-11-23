@@ -9,15 +9,14 @@ import createStore from "./state/createStore";
 import "./firebase/startFirebaseService";
 import createChatRoomService from "./firebase/chatRoomService/chatRoomService";
 import createMessagesService from "./firebase/messagesService/messagesService";
+import { createAuthService } from "./services/createAuthService";
 import { createStoreService } from "./services/createStoreService";
 import { createChatRoomListWatcher } from "./firebase/stateIntegration/chatRoomListWatcher";
-import { createAuthStateWatcher } from "./firebase/stateIntegration/authStateWatcher";
 
 const store = createStore();
 const storeService = createStoreService(store);
 
-const authStateWatcher = createAuthStateWatcher(storeService);
-authStateWatcher.start();
+const authService = createAuthService();
 
 const chatRoomService = createChatRoomService();
 const chatRoomListWatcher = createChatRoomListWatcher(
@@ -30,7 +29,12 @@ const messagesService = createMessagesService();
 
 ReactDOM.render(
   <Provider store={store}>
-    {createAppModule(chatRoomService, messagesService, storeService).render()}
+    {createAppModule(
+      authService,
+      chatRoomService,
+      messagesService,
+      storeService
+    ).render()}
   </Provider>,
   document.getElementById("root")
 );

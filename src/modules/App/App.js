@@ -9,8 +9,22 @@ function createAppViewModel(state) {
   };
 }
 
-function createAppController(messagesService, chatRoomService, storeService) {
+function createAppController(
+  authService,
+  messagesService,
+  chatRoomService,
+  storeService
+) {
   return {
+    observeAuthState() {
+      authService.authenticate().then(userId => {
+        authService.observeAuthState(userId, user => {
+          storeService.changeUser(user);
+        });
+      });
+    },
+    stopObservingAuthState: authService.stopObservingAuthState,
+
     messagesService,
     chatRoomService,
     storeService
@@ -18,11 +32,13 @@ function createAppController(messagesService, chatRoomService, storeService) {
 }
 
 export function createAppModule(
+  authService,
   chatRoomService,
   messagesService,
   storeService
 ) {
   const appController = createAppController(
+    authService,
     messagesService,
     chatRoomService,
     storeService

@@ -4,9 +4,11 @@ import "firebase/firestore";
 
 import randomName from "../../utils/randomName/randomName";
 
-export default function createAuthService(store) {
+export function createFirebaseAuthService(store) {
   const firestore = firebase.firestore();
   const auth = firebase.auth();
+
+  let removeLastObserver = () => {};
 
   return {
     authenticate() {
@@ -37,11 +39,21 @@ export default function createAuthService(store) {
     },
 
     observeAuthState(userId, callback) {
-      firestore.doc(`/users/${userId}`).onSnapshot(snapshot => {
-        if (snapshot.exists) {
-          callback(snapshot.data());
-        }
-      });
+      removeLastObserver();
+
+      removeLastObserver = firestore
+        .doc(`/users/${userId}`)
+        .onSnapshot(snapshot => {
+          if (snapshot.exists) {
+            callback(snapshot.data());
+          }
+        });
+    },
+
+    stopObservingAuthState() {
+      removeLastObserver();
+
+      removeLastObserver = () => {};
     }
   };
 }

@@ -7,7 +7,6 @@ import { actionCreators as selectedChatRoomActions } from "./selectedChatRoom/se
 
 export function createReduxStoreService(store) {
   return {
-    store,
     ...bindActionCreators(chatRoomActions, store.dispatch),
     ...bindActionCreators(currentUserActions, store.dispatch),
     ...bindActionCreators(messageActions, store.dispatch),

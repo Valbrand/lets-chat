@@ -38,6 +38,14 @@ class App extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    this.props.observeAuthState();
+  }
+
+  componentWillUnmount() {
+    this.props.stopObservingAuthState();
+  }
 }
 
 export default App;
