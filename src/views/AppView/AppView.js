@@ -7,7 +7,7 @@ import { ChatRoomContainer } from "../../containers/ChatRoom/ChatRoomContainer";
 
 export class AppView extends Component {
   render() {
-    const { shouldShowChatInterface } = this.props;
+    const { shouldShowChatInterface, store } = this.props;
 
     return (
       <div className="app__root">
@@ -15,12 +15,12 @@ export class AppView extends Component {
           <div className="app__chat-container">
             <div className="app__left-column">
               <div className="app__column-inner-container">
-                <ChatRoomListContainer />
+                <ChatRoomListContainer store={store} />
               </div>
             </div>
             <div className="app__right-column">
               <div className="app__column-inner-container">
-                <ChatRoomContainer />
+                <ChatRoomContainer store={store} />
               </div>
             </div>
           </div>

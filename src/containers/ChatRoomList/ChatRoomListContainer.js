@@ -1,21 +1,34 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { Observer } from "mobx-react";
 import firebase from "firebase";
 import "firebase/firestore";
 
 import noop from "../../utils/noop";
 import randomName from "../../utils/randomName/randomName";
-import { selectChatRoom } from "../../state/selectedChatRoom/selectedChatRoom";
-import { addChatRoom, removeChatRoom } from "../../state/chatRooms/chatRooms";
 import { ChatRoomListView } from "../../views/ChatRoomListView/ChatRoomListView";
 
-class ChatRoomList extends Component {
+export class ChatRoomListContainer extends Component {
+  _actionMapper = actionMapper();
+
   render() {
-    return <ChatRoomListView {...this.props} />;
+    const { store } = this.props;
+
+    return (
+      <Observer>
+        {() => {
+          const mappedState = stateMapper(store);
+          const mappedActions = this._actionMapper(store);
+
+          return <ChatRoomListView {...mappedState} {...mappedActions} />;
+        }}
+      </Observer>
+    );
   }
 }
 
 function stateMapper(state) {
+  debugger;
+
   const chatRooms = Object.keys(state.chatRooms)
     .map(roomId => state.chatRooms[roomId])
     .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
@@ -31,7 +44,7 @@ function actionMapper() {
   const firestore = firebase.firestore();
   let removeObserver = noop;
 
-  return function(dispatch) {
+  return function(store) {
     return {
       createChatRoom() {
         const chatRoomName = randomName();
@@ -43,12 +56,12 @@ function actionMapper() {
           })
           .then(document => document.id)
           .then(roomId => {
-            dispatch(selectChatRoom(roomId));
+            store.selectChatRoom(roomId);
           });
       },
 
       selectChatRoom(roomId) {
-        dispatch(selectChatRoom(roomId));
+        store.selectChatRoom(roomId);
       },
 
       observeChatRooms() {
@@ -79,7 +92,7 @@ function actionMapper() {
               Object.keys(added).forEach(addedRoomId => {
                 const addedRoom = added[addedRoomId];
 
-                dispatch(addChatRoom(addedRoomId, addedRoom));
+                store.addChatRoom(addedRoomId, addedRoom);
               });
             }
 
@@ -87,13 +100,13 @@ function actionMapper() {
               Object.keys(modified).forEach(modifiedRoomId => {
                 const modifiedRoom = modified[modifiedRoomId];
 
-                dispatch(addChatRoom(modifiedRoomId, modifiedRoom));
+                store.addChatRoom(modifiedRoomId, modifiedRoom);
               });
             }
 
             if (removed) {
               Object.keys(removed).forEach(removedRoomId => {
-                dispatch(removeChatRoom(removedRoomId));
+                store.removeChatRoom(removedRoomId);
               });
             }
           });
@@ -106,7 +119,3 @@ function actionMapper() {
     };
   };
 }
-
-export const ChatRoomListContainer = connect(stateMapper, actionMapper)(
-  ChatRoomList
-);

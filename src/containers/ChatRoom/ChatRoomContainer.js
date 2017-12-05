@@ -1,15 +1,27 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { Observer } from "mobx-react";
 import firebase from "firebase";
 import "firebase/firestore";
 
 import noop from "../../utils/noop";
-import { addMessages } from "../../state/messages/messages";
 import { ChatRoomView } from "../../views/ChatRoomView/ChatRoomView";
 
-class ChatRoom extends Component {
+export class ChatRoomContainer extends Component {
+  _actionMapper = actionMapper();
+
   render() {
-    return <ChatRoomView {...this.props} />;
+    const { store } = this.props;
+
+    return (
+      <Observer>
+        {() => {
+          const mappedState = stateMapper(store);
+          const mappedActions = this._actionMapper(store);
+
+          return <ChatRoomView {...mappedState} {...mappedActions} />;
+        }}
+      </Observer>
+    );
   }
 }
 
@@ -30,7 +42,7 @@ function actionMapper() {
   const firestore = firebase.firestore();
   let removeObserver = noop;
 
-  return function(dispatch) {
+  return function(store) {
     return {
       watchForMessagesInRoom(roomId) {
         const messageCollectionPath = `/chatRooms/${roomId}/messages`;
@@ -44,7 +56,7 @@ function actionMapper() {
               .filter(docChange => docChange.type === "added")
               .map(addedMessage => addedMessage.doc.data());
 
-            dispatch(addMessages(newMessages));
+            store.addMessages(newMessages);
           });
       },
 
@@ -82,5 +94,3 @@ function actionMapper() {
     };
   };
 }
-
-export const ChatRoomContainer = connect(stateMapper, actionMapper)(ChatRoom);

@@ -22,10 +22,10 @@ export default class LetsChatStore {
         this.currentUser = user;
       }),
       addChatRoom: action((roomId, room) => {
-        this.chatRooms.set(roomId, room);
+        this._chatRooms.set(roomId, room);
       }),
       removeChatRoom: action(roomId => {
-        this.chatRooms.delete(roomId);
+        this._chatRooms.delete(roomId);
       }),
       addMessages: action(messages => {
         if (this.messages === null) {

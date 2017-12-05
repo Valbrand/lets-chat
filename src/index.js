@@ -1,19 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
 
 import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
-import createStore from "./state/createStore";
+import LetsChatStore from "./state/LetsChatStore";
 import "./firebase/startFirebaseService";
 import { AppContainer } from "./containers/App/AppContainer";
 
-const store = createStore();
+const store = new LetsChatStore();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
+  <AppContainer store={store} />,
   document.getElementById("root")
 );
 registerServiceWorker();

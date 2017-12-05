@@ -1,17 +1,29 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { Observer } from "mobx-react";
 import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 
 import noop from "../../utils/noop";
 import randomName from "../../utils/randomName/randomName";
-import { changeUser } from "../../state/currentUser/currentUser";
 import { AppView } from "../../views/AppView/AppView";
 
-class App extends Component {
+export class AppContainer extends Component {
+  _actionMapper = actionMapper();
+
   render() {
-    return <AppView {...this.props} />;
+    const { store } = this.props;
+
+    return (
+      <Observer>
+        {() => {
+          const mappedState = stateMapper(store);
+          const mappedActions = this._actionMapper(store);
+
+          return <AppView {...mappedState} {...mappedActions} store={store} />;
+        }}
+      </Observer>
+    );
   }
 }
 
@@ -55,7 +67,7 @@ function actionMapper() {
       });
   }
 
-  return function(dispatch) {
+  return function(store) {
     return {
       observeAuthState() {
         authenticate().then(userId => {
@@ -67,7 +79,7 @@ function actionMapper() {
               if (snapshot.exists) {
                 const user = snapshot.data();
 
-                dispatch(changeUser(user));
+                store.changeUser(user);
               }
             });
         });
@@ -81,5 +93,3 @@ function actionMapper() {
     };
   };
 }
-
-export const AppContainer = connect(stateMapper, actionMapper)(App);
