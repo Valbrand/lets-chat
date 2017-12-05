@@ -1,0 +1,26 @@
+.chat-room-message-list-item__root {
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.chat-room-message-list-item__balloon {
+  padding: 0.25rem 0.5rem;
+  background: #ddd;
+  border-radius: 5px;
+  display: inline-block;
+  width: 100%;
+}
+
+.chat-room-message-list-item__sender {
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.chat-room-message-list-item__content {
+  word-wrap: break-word;
+}
+
+.chat-room-message-list-item__timestamp {
+  font-size: 0.75rem;
+  color: #666;
+}
