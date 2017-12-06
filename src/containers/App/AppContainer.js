@@ -4,8 +4,8 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 
-import noop from "../../utils/noop";
-import randomName from "../../utils/randomName/randomName";
+import { createAuthService } from "../../services/auth/createAuthService";
+import { createStoreService } from "../../services/store/createStoreService";
 import { changeUser } from "../../state/currentUser/currentUser";
 import { AppView } from "../../views/AppView/AppView";
 
@@ -24,60 +24,21 @@ function stateMapper(state) {
 }
 
 function actionMapper() {
-  const firestore = firebase.firestore();
-  const auth = firebase.auth();
-  let removeObserver = noop;
+  const authService = createAuthService();
 
-  function authenticate() {
-    return auth
-      .signInAnonymously()
-      .then(result => {
-        const userObject = {
-          id: result.uid,
-          name: randomName()
-        };
+  return function(dispatch, ownProps) {
+    const { storeService } = ownProps;
 
-        const userReference = firestore.doc(`/users/${userObject.id}`);
-
-        userReference.get().then(snapshot => {
-          if (!snapshot.exists) {
-            userReference.set(userObject);
-          }
-        });
-
-        return userObject.id;
-      })
-      .catch(error => {
-        alert(
-          "An error was detected while trying to authenticate you with the servers"
-        );
-        console.log(error);
-      });
-  }
-
-  return function(dispatch) {
     return {
       observeAuthState() {
-        authenticate().then(userId => {
-          removeObserver();
-
-          removeObserver = firestore
-            .doc(`/users/${userId}`)
-            .onSnapshot(snapshot => {
-              if (snapshot.exists) {
-                const user = snapshot.data();
-
-                dispatch(changeUser(user));
-              }
-            });
+        authService.authenticate().then(userId => {
+          authService.observeAuthState(userId, user => {
+            storeService.changeUser(user);
+          });
         });
       },
 
-      stopObservingAuthState() {
-        removeObserver();
-
-        removeObserver = noop;
-      }
+      stopObservingAuthState: authService.stopObservingAuthState
     };
   };
 }
