@@ -1,7 +1,7 @@
-import { createReduxStoreService } from "../../state/createReduxStoreService";
+import { createMobxStoreService } from "../../state/createMobxStoreService";
 
 export function createStoreService(store) {
-  const reduxStoreService = createReduxStoreService(store);
+  const reduxStoreService = createMobxStoreService(store);
 
   return {
     changeUser: reduxStoreService.changeUser,
