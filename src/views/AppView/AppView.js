@@ -2,8 +2,7 @@ import React, { Component } from "react";
 
 import "./AppView.css";
 
-import { ChatRoomListContainer } from "../../containers/ChatRoomList/ChatRoomListContainer";
-import { ChatRoomContainer } from "../../containers/ChatRoom/ChatRoomContainer";
+import { createChatRoomListModule } from "../../modules/ChatRoomList/ChatRoomListModule";
 import { createChatRoomModule } from "../../modules/ChatRoom/ChatRoomModule";
 
 export class AppView extends Component {
@@ -16,7 +15,7 @@ export class AppView extends Component {
           <div className="app__chat-container">
             <div className="app__left-column">
               <div className="app__column-inner-container">
-                <ChatRoomListContainer />
+                {createChatRoomListModule(storeService).render()}
               </div>
             </div>
             <div className="app__right-column">

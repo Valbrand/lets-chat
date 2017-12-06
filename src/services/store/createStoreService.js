@@ -5,6 +5,9 @@ export function createStoreService(store) {
 
   return {
     changeUser: reduxStoreService.changeUser,
-    addMessages: reduxStoreService.addMessages
+    addMessages: reduxStoreService.addMessages,
+    selectChatRoom: reduxStoreService.selectChatRoom,
+    addChatRoom: reduxStoreService.addChatRoom,
+    removeChatRoom: reduxStoreService.removeChatRoom
   };
 }
