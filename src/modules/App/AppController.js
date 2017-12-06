@@ -4,6 +4,8 @@ export function createAppController(storeService) {
   const authService = createAuthService();
 
   return {
+    storeService,
+
     observeAuthState() {
       authService.authenticate().then(userId => {
         authService.observeAuthState(userId, user => {

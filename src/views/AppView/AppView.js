@@ -4,10 +4,11 @@ import "./AppView.css";
 
 import { ChatRoomListContainer } from "../../containers/ChatRoomList/ChatRoomListContainer";
 import { ChatRoomContainer } from "../../containers/ChatRoom/ChatRoomContainer";
+import { createChatRoomModule } from "../../modules/ChatRoom/ChatRoomModule";
 
 export class AppView extends Component {
   render() {
-    const { shouldShowChatInterface } = this.props;
+    const { shouldShowChatInterface, storeService } = this.props;
 
     return (
       <div className="app__root">
@@ -20,7 +21,7 @@ export class AppView extends Component {
             </div>
             <div className="app__right-column">
               <div className="app__column-inner-container">
-                <ChatRoomContainer />
+                {createChatRoomModule(storeService).render()}
               </div>
             </div>
           </div>

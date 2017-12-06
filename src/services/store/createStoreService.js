@@ -4,6 +4,7 @@ export function createStoreService(store) {
   const reduxStoreService = createReduxStoreService(store);
 
   return {
-    changeUser: reduxStoreService.changeUser
+    changeUser: reduxStoreService.changeUser,
+    addMessages: reduxStoreService.addMessages
   };
 }
