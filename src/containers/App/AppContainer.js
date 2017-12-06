@@ -6,10 +6,12 @@ import "firebase/firestore";
 
 import noop from "../../utils/noop";
 import randomName from "../../utils/randomName/randomName";
+import { storeInstance } from "../../state/LetsChatStore";
 import { AppView } from "../../views/AppView/AppView";
 
 export class AppContainer extends Component {
   _actionMapper = actionMapper();
+  store = storeInstance();
 
   render() {
     const { store } = this.props;
@@ -17,10 +19,10 @@ export class AppContainer extends Component {
     return (
       <Observer>
         {() => {
-          const mappedState = stateMapper(store);
-          const mappedActions = this._actionMapper(store);
+          const mappedState = stateMapper(this.store);
+          const mappedActions = this._actionMapper(this.store);
 
-          return <AppView {...mappedState} {...mappedActions} store={store} />;
+          return <AppView {...mappedState} {...mappedActions} />;
         }}
       </Observer>
     );

@@ -5,10 +5,12 @@ import "firebase/firestore";
 
 import noop from "../../utils/noop";
 import randomName from "../../utils/randomName/randomName";
+import { storeInstance } from "../../state/LetsChatStore";
 import { ChatRoomListView } from "../../views/ChatRoomListView/ChatRoomListView";
 
 export class ChatRoomListContainer extends Component {
   _actionMapper = actionMapper();
+  store = storeInstance();
 
   render() {
     const { store } = this.props;
@@ -16,8 +18,8 @@ export class ChatRoomListContainer extends Component {
     return (
       <Observer>
         {() => {
-          const mappedState = stateMapper(store);
-          const mappedActions = this._actionMapper(store);
+          const mappedState = stateMapper(this.store);
+          const mappedActions = this._actionMapper(this.store);
 
           return <ChatRoomListView {...mappedState} {...mappedActions} />;
         }}
@@ -27,8 +29,6 @@ export class ChatRoomListContainer extends Component {
 }
 
 function stateMapper(state) {
-  debugger;
-
   const chatRooms = Object.keys(state.chatRooms)
     .map(roomId => state.chatRooms[roomId])
     .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));

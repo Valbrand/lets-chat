@@ -4,19 +4,19 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 import noop from "../../utils/noop";
+import { storeInstance } from "../../state/LetsChatStore";
 import { ChatRoomView } from "../../views/ChatRoomView/ChatRoomView";
 
 export class ChatRoomContainer extends Component {
   _actionMapper = actionMapper();
+  store = storeInstance();
 
   render() {
-    const { store } = this.props;
-
     return (
       <Observer>
         {() => {
-          const mappedState = stateMapper(store);
-          const mappedActions = this._actionMapper(store);
+          const mappedState = stateMapper(this.store);
+          const mappedActions = this._actionMapper(this.store);
 
           return <ChatRoomView {...mappedState} {...mappedActions} />;
         }}

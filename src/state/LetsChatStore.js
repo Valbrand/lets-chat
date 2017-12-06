@@ -1,6 +1,6 @@
 import { action, extendObservable, observable } from "mobx";
 
-export default class LetsChatStore {
+class LetsChatStore {
   constructor() {
     extendObservable(this, {
       _chatRooms: observable.map({}),
@@ -37,3 +37,15 @@ export default class LetsChatStore {
     });
   }
 }
+
+export const storeInstance = (function() {
+  let store = null;
+
+  return () => {
+    if (store === null) {
+      store = new LetsChatStore();
+    }
+
+    return store;
+  };
+})();
